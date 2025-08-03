@@ -73,26 +73,35 @@ class Property(models.Model):
                 if rec.garden_area == 0:
                     raise ValidationError('Please add a valid value for garden area !')
 
+    def create_history_record(self,old_state, new_state):
+        for rec in self:
+            rec.env['property.history'].create({
+                'user_id': rec.env.uid,
+                'property_id': rec.id,
+                'old_state': old_state,
+                'new_state': new_state,
+            })
+
     def action_draft(self):
         for rec in self:
-            print("inside draft action")
+            rec.create_history_record(rec.state, 'draft')
             rec.state = 'draft'
 
     def action_pending(self):
         for rec in self:
-            print("inside pending action")
+            rec.create_history_record(rec.state, 'pending')
             rec.write({
                 'state': 'pending'
             })
 
     def action_sold(self):
         for rec in self:
-            print("inside sold action")
+            rec.create_history_record(rec.state, 'sold')
             rec.state = 'sold'
 
     def action_closed(self):
         for rec in self:
-            print("inside closed action")
+            rec.create_history_record(rec.state, 'closed')
             rec.state = 'closed'
 
     def check_expected_selling_date(self):
@@ -124,23 +133,24 @@ class Property(models.Model):
         return {'warning': {'title': 'Warning!!', 'message': 'You Changed the Expected Price!', 'type': 'warning'}
                 }
 
-
-# @api.depends('owner_id')
-# def _compute_owner_address(self):
-#     for rec in self:
-#         rec.owner_address_compute =  rec.owner_id.address
-#
-# @api.depends('owner_id')
-# def _compute_owner_phone(self):
-#     for rec in self:
-#         rec.owner_phone_compute =  rec.owner_id.phone
-
     @api.model_create_multi
     def create(self, vals):
         res = super(Property, self).create(vals)
         if res.ref == 'New':
             res.ref = self.env['ir.sequence'].next_by_code('property_sequence')
         return res
+
+
+
+    # @api.depends('owner_id')
+    # def _compute_owner_address(self):
+    #     for rec in self:
+    #         rec.owner_address_compute =  rec.owner_id.address
+    #
+    # @api.depends('owner_id')
+    # def _compute_owner_phone(self):
+    #     for rec in self:
+    #         rec.owner_phone_compute =  rec.owner_id.phone
 #
 # @api.model
 # def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
