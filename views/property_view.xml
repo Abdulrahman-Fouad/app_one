@@ -5,11 +5,12 @@
         <field name="model">property</field>
         <field name="arch" type="xml">
             <!--            <tree multi_edit="1" delete="0" edit="0" create="0">-->
-            <tree class="header_custom" decoration-danger="(is_late)">
+            <!--            <tree class="header_custom" decoration-danger="(is_late)">-->
+            <tree class="header_custom">
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="owner_id"/>
-<!--                <field name="active" invisible="1"/>-->
+                <!--                <field name="active" invisible="1"/>-->
                 <field name="tag_ids" string="Tags" widget="many2many_tags"/>
                 <field name="date_availability"/>
                 <field name="expected_selling_date"/>
@@ -33,6 +34,7 @@
             <form>
                 <sheet>
                     <header>
+                        <button name="action" type="object" class="btn-primary" string="Action"/>
                         <button name="action_draft" type="object" class="btn-primary" string="SET To Draft"
                                 invisible="state == 'draft'"/>
                         <button name="action_pending" type="object" class="btn-secondary" string="Pending"
@@ -136,15 +138,15 @@
         <field name="numbercall">-1</field>
         <field name="active">True</field>
     </record>
-<!--    <record id="property_closed_server_action" model="ir.actions.server">-->
-<!--        <field name="name">Close</field>-->
-<!--        <field name="model_id" ref="model_property"/>-->
-<!--        <field name="binding_model_id" ref="model_property"/>-->
-<!--        <field name="state">code</field>-->
-<!--        <field name="code">-->
-<!--            actions = records.action_closed()-->
-<!--        </field>-->
-<!--    </record>-->
+    <!--    <record id="property_closed_server_action" model="ir.actions.server">-->
+    <!--        <field name="name">Close</field>-->
+    <!--        <field name="model_id" ref="model_property"/>-->
+    <!--        <field name="binding_model_id" ref="model_property"/>-->
+    <!--        <field name="state">code</field>-->
+    <!--        <field name="code">-->
+    <!--            actions = records.action_closed()-->
+    <!--        </field>-->
+    <!--    </record>-->
 
     <menuitem
             id="property_menu_item"

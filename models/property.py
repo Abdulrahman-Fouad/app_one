@@ -156,7 +156,9 @@ class Property(models.Model):
 #     res = super(Property, self).unlink()
 #     print(f'Inside Unlink Method')
 #     return res
-
+#
+#     def action(self):
+#         print(self.env["owner"].search([('name','=','Abooda')]).unlink())
 
 class PropertyLine(models.Model):
     _name = 'property.line'
