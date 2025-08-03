@@ -14,6 +14,7 @@ class Property(models.Model):
         ('closed', 'Closed')
     ], default="draft", tracking=1)
 
+    ref = fields.Char(default='New', readonly= 1)
     name = fields.Char(required=1, default='New', tracking=1)
 
     postcode = fields.Char(required=1, tracking=1)
@@ -134,12 +135,12 @@ class Property(models.Model):
 #     for rec in self:
 #         rec.owner_phone_compute =  rec.owner_id.phone
 
-
-# @api.model_create_multi
-# def create(self, vals):
-#     res = super(Property,self).create(vals)
-#     print(f'Inside Create Method')
-#     return res
+    @api.model_create_multi
+    def create(self, vals):
+        res = super(Property, self).create(vals)
+        if res.ref == 'New':
+            res.ref = self.env['ir.sequence'].next_by_code('property_sequence')
+        return res
 #
 # @api.model
 # def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
