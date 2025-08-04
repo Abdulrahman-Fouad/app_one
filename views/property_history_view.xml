@@ -33,7 +33,7 @@
                             <field name="reason"/>
                         </group>
                     </group>
-                     <notebook>
+                    <notebook>
                         <page string="Bedrooms">
                             <field name="line_ids" readonly="1">
                                 <tree>
@@ -73,5 +73,7 @@
             name="History"
             parent="properties_menu"
             action="property_history_action"
+            groups='app_one.property_manger_group'
+
     />
 </odoo>

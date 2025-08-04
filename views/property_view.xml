@@ -92,7 +92,7 @@
                         <field name="owner_phone"/>
                     </group>
                     <notebook>
-                        <page string="Bedrooms">
+                        <page string="Bedrooms" groups='app_one.property_manger_group'>
                             <field name="line_ids" readonly="state == 'closed'">
                                 <tree editable="bottom">
                                     <field name="description"/>
@@ -146,15 +146,15 @@
         <field name="active">True</field>
     </record>
 
-    <record id="property_closed_server_action" model="ir.actions.server">
-        <field name="name">Close</field>
-        <field name="model_id" ref="model_property"/>
-        <field name="binding_model_id" ref="model_property"/>
-        <field name="state">code</field>
-        <field name="code">
-            actions = records.action_closed()
-        </field>
-    </record>
+    <!--    <record id="property_closed_server_action" model="ir.actions.server">-->
+    <!--        <field name="name">Close</field>-->
+    <!--        <field name="model_id" ref="model_property"/>-->
+    <!--        <field name="binding_model_id" ref="model_property"/>-->
+    <!--        <field name="state">code</field>-->
+    <!--        <field name="code">-->
+    <!--            actions = records.action_closed()-->
+    <!--        </field>-->
+    <!--    </record>-->
 
     <record id="property_change_state_wizard_action" model="ir.actions.server">
         <field name="name">Change State</field>
