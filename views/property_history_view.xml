@@ -9,6 +9,7 @@
                 <field name="property_id"/>
                 <field name="old_state"/>
                 <field name="new_state"/>
+                <field name="change_reason"/>
             </tree>
         </field>
     </record>
@@ -27,6 +28,9 @@
                         <group>
                             <field name="old_state"/>
                             <field name="new_state"/>
+                        </group>
+                        <group>
+                            <field name="change_reason"/>
                         </group>
                     </group>
                 </sheet>
