@@ -34,6 +34,8 @@
             <!--            <form delete="0" edit="0" create="0">-->
             <form>
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="text-bg-success" invisible="state != 'sold'"/>
                     <header>
                         <button name="action" type="object" class="btn-primary" string="Action"/>
                         <button name="action_draft" type="object" class="btn-primary" string="SET To Draft"
