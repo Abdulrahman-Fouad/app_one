@@ -1,0 +1,9 @@
+@font-face {
+font-family: "DancingScript";
+src: url(/app_one/static/fonts/DancingScript-Regular.ttf)
+}
+
+@font-face {
+font-family: "Bitcount";
+src: url(/app_one/static/fonts/Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf)
+}

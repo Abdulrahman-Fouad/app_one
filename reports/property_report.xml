@@ -12,7 +12,9 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <t t-foreach="docs" t-as="o">
-                    <h1>Property Report</h1>
+                    <h1 style="font-family: 'DancingScript';">
+                        Property Report
+                    </h1>
                     <style>
                         table {
                         width:100%;
@@ -36,7 +38,7 @@
                     </style>
                     <table>
                         <thead>
-                            <th colspan="4">General Information</th>
+                            <th colspan="4" style="font-family: 'Bitcount';">General Information</th>
                         </thead>
                         <tbody>
                             <td>Name</td>
