@@ -1,1 +1,1 @@
-from . import property, owner, tag, sale_order, client, res_partner,building, property_history
+from . import property, owner, tag, sale_order, client, res_partner,building, property_history,account_move
