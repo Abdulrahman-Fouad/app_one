@@ -1,11 +1,13 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from datetime import timedelta
 
 
 class Property(models.Model):
     _name = 'property'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Property"
+
 
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -37,6 +39,8 @@ class Property(models.Model):
         ('east', 'East'),
         ('west', 'West')
     ], tracking=1)
+    create_time = fields.Datetime(default= fields.Datetime.now())
+    next_time = fields.Datetime(compute= 'compute_next_time')
     tag_ids = fields.Many2many('tag', tracking=1)
 
     description = fields.Text(tracking=1)
@@ -72,6 +76,14 @@ class Property(models.Model):
             if rec.garden:
                 if rec.garden_area == 0:
                     raise ValidationError('Please add a valid value for garden area !')
+
+    @api.depends('create_time')
+    def compute_next_time(self):
+        for rec in self:
+            if rec.create_time:
+                rec.next_time = rec.create_time + timedelta(hours=6)
+            else:
+                rec.next_time = False
 
     def create_history_record(self,old_state, new_state, reason = ""):
         for rec in self:

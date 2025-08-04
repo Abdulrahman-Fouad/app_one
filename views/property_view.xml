@@ -72,6 +72,8 @@
                         </group>
 
                         <group string="Additional Info">
+                            <field name="create_time" readonly="1"/>
+                            <field name="next_time" readonly="1"/>
                             <field name="garage" readonly="state == 'closed'"/>
                             <field name="garden" readonly="state == 'closed'"/>
                             <field name="garden_area" readonly="state == 'closed'"/>
