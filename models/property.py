@@ -184,8 +184,15 @@ class Property(models.Model):
 #     print(f'Inside Unlink Method')
 #     return res
 #
-#     def action(self):
-#         print(self.env["owner"].search([('name','=','Abooda')]).unlink())
+    def action(self):
+        for rec in self.env["property"].search([
+            # '|', #or operator
+            # '&', #and operator, not nesseccary
+            '!', #not operator
+            ('name','=','Property 1'),
+            ('postcode','=','85488')
+        ]):
+            print(rec.name)
 
 class PropertyLine(models.Model):
     _name = 'property.line'
