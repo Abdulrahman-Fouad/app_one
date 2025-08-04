@@ -80,7 +80,8 @@ class Property(models.Model):
                 'property_id': rec.id,
                 'old_state': old_state,
                 'new_state': new_state,
-                'change_reason': reason,
+                'reason': reason,
+                'line_ids': [(0, 0, {'description':line.description, 'area':line.area})for line in rec.line_ids],
             })
 
 

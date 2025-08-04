@@ -9,7 +9,7 @@
                 <field name="property_id"/>
                 <field name="old_state"/>
                 <field name="new_state"/>
-                <field name="change_reason"/>
+                <field name="reason"/>
             </tree>
         </field>
     </record>
@@ -30,9 +30,19 @@
                             <field name="new_state"/>
                         </group>
                         <group>
-                            <field name="change_reason"/>
+                            <field name="reason"/>
                         </group>
                     </group>
+                     <notebook>
+                        <page string="Bedrooms">
+                            <field name="line_ids" readonly="1">
+                                <tree>
+                                    <field name="description"/>
+                                    <field name="area"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
