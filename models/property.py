@@ -29,7 +29,8 @@ class Property(models.Model):
     bedrooms = fields.Integer(required=1, tracking=1)
     living_area = fields.Integer(tracking=1)
     facades = fields.Integer(tracking=1)
-    garage = fields.Boolean(tracking=1, groups='app_one.property_manger_group')
+    # garage = fields.Boolean(tracking=1, groups='app_one.property_manger_group')
+    garage = fields.Boolean(tracking=1)
     garden = fields.Boolean(tracking=1)
     garden_area = fields.Integer(tracking=1)
     garden_orientation = fields.Selection([

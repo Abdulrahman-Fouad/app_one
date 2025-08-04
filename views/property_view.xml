@@ -92,7 +92,8 @@
                         <field name="owner_phone"/>
                     </group>
                     <notebook>
-                        <page string="Bedrooms" groups='app_one.property_manger_group'>
+<!--                        <page string="Bedrooms" groups='app_one.property_manger_group'>-->
+                        <page string="Bedrooms">
                             <field name="line_ids" readonly="state == 'closed'">
                                 <tree editable="bottom">
                                     <field name="description"/>
