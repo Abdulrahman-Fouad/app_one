@@ -1,1 +1,1 @@
-from . import test_api
+from . import test_api, property_api
