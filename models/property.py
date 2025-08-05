@@ -16,7 +16,7 @@ class Property(models.Model):
     ], default="draft", tracking=1)
 
     ref = fields.Char(default='New', readonly= True)
-    name = fields.Char(required=True, default='New', tracking=True)
+    name = fields.Char(required=True, default='New', tracking=True, translate= True)
 
     postcode = fields.Char(required=True, tracking=True)
     date_availability = fields.Date(default=fields.date.today(), tracking=True)
