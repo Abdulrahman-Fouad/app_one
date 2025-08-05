@@ -2,6 +2,7 @@ from odoo import fields, models
 
 class ChangeState(models.TransientModel):
     _name = 'change.state'
+    _description = 'Change State'
 
     property_id = fields.Many2one('property')
     state = fields.Selection([

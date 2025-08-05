@@ -17,6 +17,7 @@ class PropertyHistory(models.Model):
 
 class PropertyHistoryLine(models.Model):
     _name = 'property.history.line'
+    _description = "Property History Line"
 
     history_id=fields.Many2one('property.history')
     description = fields.Char()

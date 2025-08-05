@@ -6,7 +6,7 @@ class ResPartner(models.Model):
 
     property_id = fields.Many2one('property')
     # price = fields.Float(compute='_compute_property_price')
-    price = fields.Float(related='property_id.selling_price', store=1)
+    price = fields.Float(related='property_id.selling_price', store=True)
 
     @api.depends('property_id')
     def _compute_property_price(self):
