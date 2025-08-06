@@ -11,7 +11,7 @@ class PropertyApi(http.Controller):
         # separate method
         if not vals.get("name"):
             return request.make_json_response({
-                "message": "Field name is required",
+                "error": "Field name is required",
             }, status=400)
         try:
             res = request.env['property'].sudo().create(vals)
@@ -23,28 +23,51 @@ class PropertyApi(http.Controller):
                 }, status=201)
         except Exception as error:
             return request.make_json_response({
-                "message": error,
+                "error": error,
             }, status=400)
 
-    @http.route("/v1/property/<int:property_id>", methods=["PUT"], type="http", auth="none", csrf=False)
-    def update_property(self, property_id):
+    @http.route("/v1/property/<int:id>", methods=["PUT"], type="http", auth="none", csrf=False)
+    def update_property(self, id):
         try:
-            property = request.env['property'].sudo().search([('id', '=', property_id)])
-            if not property:
+            property_id = request.env['property'].sudo().search([('id', '=', id)])
+            if not property_id:
                 return request.make_json_response({
-                "message": f"There is no property with id: {property_id} !!!",
-            }, status=400)
+                    "error": f"There is no property with id: {id} !!!",
+                }, status=400)
             args = request.httprequest.data.decode()
             vals = json.loads(args)
-            property.write(vals)
+            property_id.write(vals)
             return request.make_json_response({
-                "message": f"{property.name} has been updated successfully",
-                "id": property.id,
-                "name": property.name,
+                "message": f"{property_id.name} has been updated successfully",
+                "id": property_id.id,
+                "name": property_id.name,
             }, status=200)
         except Exception as error:
             return request.make_json_response({
-                "message": error,
+                "error": error,
+            }, status=400)
+
+    @http.route("/v1/property/<int:id>", methods=["GET"], type="http", auth="none", csrf=False)
+    def get_property(self, id):
+        try:
+            property_id = request.env['property'].sudo().search([('id', '=', id)])
+            if not property_id:
+                return request.make_json_response({
+                    "error": f"There is no property with id: {id} !!!",
+                }, status=400)
+            return request.make_json_response({
+                "name": property_id.name,
+                "postcode": property_id.postcode,
+                "bedrooms": property_id.bedrooms,
+                "living_area": property_id.living_area,
+                "description": property_id.description,
+                "garden": property_id.garden,
+                "garden_area": property_id.garden_area,
+                "garden_orientation": property_id.garden_orientation,
+            }, status=200)
+        except Exception as error:
+            return request.make_json_response({
+                "error": error,
             }, status=400)
 
     # @http.route("/v1/property/json", methods=["POST"], type="json", auth="none", csrf=False)
