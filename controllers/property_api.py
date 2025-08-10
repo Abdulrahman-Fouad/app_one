@@ -20,20 +20,45 @@ def invalid_response(error, status):
 
 
 class PropertyApi(http.Controller):
+    # @http.route("/v1/property", methods=["POST"], type="http", auth="none", csrf=False)
+    # def post_property(self):
+    #     args = request.httprequest.data.decode()
+    #     vals = json.loads(args)
+    #     # separate method
+    #     if not vals.get("name"):
+    #         return invalid_response("Field name is required", 400)
+    #     try:
+    #         res = request.env['property'].sudo().create(vals)
+    #         if res:
+    #             return valid_response({
+    #                 "message": f"{res.name} has been created successfully",
+    #                 "id": res.id,
+    #                 "name": res.name,
+    #             }, 201)
+    #
+    #     except Exception as error:
+    #         return invalid_response(error, 400)
+
     @http.route("/v1/property", methods=["POST"], type="http", auth="none", csrf=False)
     def post_property(self):
         args = request.httprequest.data.decode()
         vals = json.loads(args)
-        # separate method
         if not vals.get("name"):
             return invalid_response("Field name is required", 400)
         try:
-            res = request.env['property'].sudo().create(vals)
+            # res = request.env['property'].sudo().create(vals)
+            cr = request.env.cr
+            columns = ', '.join(vals.keys())
+            values = ', '.join(['%s']* len(vals))
+            query = f"""INSERT INTO property ({columns}) VALUES ({values}) RETURNING id, name, postcode, bedrooms"""
+            cr.execute(query, tuple(vals.values()))
+            res = cr.fetchone()
+            print(res)
             if res:
                 return valid_response({
-                    "message": f"{res.name} has been created successfully",
-                    "id": res.id,
-                    "name": res.name,
+                    "message": f"{res[1]} has been created successfully",
+                    "id": res[0],
+                    "name": res[1],
                 }, 201)
 
         except Exception as error:
