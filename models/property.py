@@ -1,6 +1,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from datetime import timedelta
+import requests
 
 
 class Property(models.Model):
@@ -165,9 +166,26 @@ class Property(models.Model):
         action['views'] = [[view_id,'form']]
         return action
 
+    def action(self):
+        for rec in self.env["property"].search([
+            # '|', #or operator
+            # '&', #and operator, not nesseccary
+            '!', #not operator
+            ('name','=','Property 1'),
+            ('postcode','=','85488')
+        ]):
+            print(rec.name)
 
-
-
+    def get_properties(self):
+        payload = dict({'state':['draft']})
+        try:
+            response = requests.get('http://127.0.0.1:8069/v1/properties',params = payload)
+            if response.status_code == 200:
+                print("Successful")
+            else:
+                print("Fail")
+        except Exception as error:
+            raise ValidationError(str(error))
     # @api.depends('owner_id')
     # def _compute_owner_address(self):
     #     for rec in self:
@@ -178,33 +196,21 @@ class Property(models.Model):
     #     for rec in self:
     #         rec.owner_phone_compute =  rec.owner_id.phone
 
-
-#
-# @api.model
-# def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
-#     res = super(Property,self)._search(domain, offset=0, limit=None, order=None, access_rights_uid=None)
-#     print(f'Inside Search Method')
-#     return res
-#
-# def write(self, vals):
-#     res = super(Property, self).write(vals)
-#     print(f'Inside Write Method')
-#     return res
-#
-# def unlink(self):
-#     res = super(Property, self).unlink()
-#     print(f'Inside Unlink Method')
-#     return res
-#
-    def action(self):
-        for rec in self.env["property"].search([
-            # '|', #or operator
-            # '&', #and operator, not nesseccary
-            '!', #not operator
-            ('name','=','Property 1'),
-            ('postcode','=','85488')
-        ]):
-            print(rec.name)
+    # @api.model
+    # def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
+    #     res = super(Property,self)._search(domain, offset=0, limit=None, order=None, access_rights_uid=None)
+    #     print(f'Inside Search Method')
+    #     return res
+    #
+    # def write(self, vals):
+    #     res = super(Property, self).write(vals)
+    #     print(f'Inside Write Method')
+    #     return res
+    #
+    # def unlink(self):
+    #     res = super(Property, self).unlink()
+    #     print(f'Inside Unlink Method')
+    #     return res
 
 class PropertyLine(models.Model):
     _name = 'property.line'

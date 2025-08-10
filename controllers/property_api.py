@@ -113,11 +113,6 @@ class PropertyApi(http.Controller):
                                                                  order='id desc')
             property_count = request.env['property'].sudo().search_count(property_domain)
 
-            print(page)
-            print(limit)
-            print(property_ids)
-            print(property_count)
-
             if not property_ids:
                 return invalid_response("There are no records !!!", 400)
             return valid_response([{
