@@ -186,6 +186,15 @@ class Property(models.Model):
                 print("Fail")
         except Exception as error:
             raise ValidationError(str(error))
+
+    def property_xlsx_report(self):
+        active_ids = self.env.context.get('active_ids')
+        return {
+            'type': 'ir.actions.act_url',
+            'url' : f'/property/excel/report/{active_ids}',
+            'target': 'new'
+        }
+
     # @api.depends('owner_id')
     # def _compute_owner_address(self):
     #     for rec in self:

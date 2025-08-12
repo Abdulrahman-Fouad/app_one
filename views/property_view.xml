@@ -7,6 +7,10 @@
             <!--            <tree multi_edit="1" delete="0" edit="0" create="0">-->
             <!--            <tree class="header_custom" decoration-danger="(is_late)">-->
             <tree class="header_custom">
+                <header>
+                        <button name="property_xlsx_report" type="object" class="btn-primary" string="Print Excel Report"/>
+
+                    </header>
                 <field name="ref"/>
                 <field name="name"/>
                 <field name="postcode"/>
