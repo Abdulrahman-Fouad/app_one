@@ -15,14 +15,37 @@ class XlsxPropertyReport(http.Controller):
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         worksheet = workbook.add_worksheet('Properties')
 
-        header_format = workbook.add_format({'bold': True,'bg_color': '#D3D3D3','border': 1,'align': 'center'})
-        string_format = workbook.add_format({'align': 'center','border': 1})
-        price_format = workbook.add_format({'align': 'center', 'border': 1, 'num_format': '$##,##00.00',})
+        header_format = workbook.add_format({
+            'align': 'center',
+            'valign': 'vcenter',
+            'border': 1,
+            'bold': True,
+            'bg_color': '#D3D3D3'
+        })
+
+        string_format = workbook.add_format({
+            'align': 'center',
+            'valign': 'vcenter',
+            'border': 1
+        })
+
+        price_format = workbook.add_format({
+            'align': 'center',
+            'valign': 'vcenter',
+            'border': 1,
+            'num_format': '$##,##0.00'
+        })
 
         headers = ['Name', 'Postcode', 'Selling Price', 'Garden']
 
         for col_num, header in enumerate(headers):
             worksheet.write(0, col_num, header, header_format)
+
+        # Set custom column widths
+        worksheet.set_column(0, 3, 25)
+
+        for i in range(0, len(property_records) + 1):
+            worksheet.set_row(i, 25)
 
         for row_num, property_record in enumerate(property_records):
             worksheet.write(row_num + 1, 0, property_record.name, string_format)
@@ -30,6 +53,7 @@ class XlsxPropertyReport(http.Controller):
             worksheet.write(row_num + 1, 2, property_record.selling_price, price_format)
             worksheet.write(row_num + 1, 3, 'Yes' if property_record.garden else 'No', string_format)
 
+        worksheet.autofit()
         workbook.close()
         output.seek(0)
         file_name = 'Property Report.xlsx'
