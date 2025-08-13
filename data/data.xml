@@ -1,0 +1,21 @@
+<odoo>
+    <data noupdate="1">
+        <record id="property_01" model="property">
+            <field name="name">Property A1</field>
+            <field name="postcode">14785</field>
+            <field name="description">Property A1 description</field>
+            <field name="owner_id">1</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">220</field>
+        </record>
+    <record id="property_02" model="property">
+            <field name="name">Property A2</field>
+            <field name="postcode">87462</field>
+            <field name="description">Property A2 description</field>
+            <field name="owner_id">2</field>
+            <field name="bedrooms">4</field>
+            <field name="living_area">280</field>
+            <field name="date_availability">2025-08-01</field>
+        </record>
+    </data>
+</odoo>
