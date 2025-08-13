@@ -10,16 +10,30 @@ export class ListViewAction extends Component {
 
     setup(){
         this.orm = useService("orm");
+        this.rpc = useService("rpc");
         this.state = useState({
             'records': []
         });
         this.loadRecords();
     };
 
+//    async loadRecords(){
+//        const result = await this.orm.searchRead("property",[],[]);
+//        console.log(result);
+//        this.state.records = result;
+//    }
+
     async loadRecords(){
-        const result = await this.orm.searchRead("property",[],[]);
+        const result = await this.rpc("/web/dataset/call_kw",{
+                model: 'property',
+                method: 'search_read',
+                args: [[]],
+                kwargs: {fields: ['id', 'name', 'postcode', 'date_availability']},
+            }
+        );
         console.log(result);
         this.state.records = result;
+//    }
     }
 }
 
