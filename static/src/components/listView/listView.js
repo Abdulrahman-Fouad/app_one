@@ -34,8 +34,37 @@ export class ListViewAction extends Component {
         );
         console.log(result);
         this.state.records = result;
-//    }
     }
+
+    async createRecord() {
+        const result = await this.rpc("/web/dataset/call_kw",{
+                model: 'property',
+                method: 'create',
+                args: [{
+                    name: "Property B3",
+                    postcode: "75314",
+                    description: "Property B1 description",
+                    owner_id: 2,
+                    bedrooms: 4,
+                    living_area: 320
+                }],
+                kwargs: {},
+            }
+        );
+        this.loadRecords();
+    };
+
+    async deleteRecord(recordId) {
+         const result = await this.rpc("/web/dataset/call_kw",{
+            model: 'property',
+            method: 'unlink',
+            args: [recordId],
+            kwargs: {},
+            }
+        );
+        this.loadRecords();
+    };
+
 }
 
 registry.category("actions").add("app_one.action_list_view", ListViewAction);
